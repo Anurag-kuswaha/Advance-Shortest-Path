@@ -8,7 +8,7 @@ using namespace std;
                                     /*working *\
                           /*------------------------------*\
 1- it starts from the function "query" where it will first take starting and destination point as s and t.
-2- now i make my 's' and 't' distance as 0 and push them in the queue to visit.
+2- now i make my 's' and 't' distance as 0 and push them in the priority queue to visit.
 3- now I alternativeley remove the forward and backward vertex from the priority queue and each time i 
      will check whether this node visited or not if not then i will call visit function and this will
      visit all the neighbour of this node;
