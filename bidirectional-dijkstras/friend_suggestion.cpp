@@ -4,7 +4,7 @@
 #include <vector>
 #include <queue>
 #include <limits>
-using namespace std;              
+using namespace std;              //Anurag Kushwaha - NIT Patna
                                     /*working *\
                           /*------------------------------*\
 1- it starts from the function "query" where it will first take starting and destination point as s and t.

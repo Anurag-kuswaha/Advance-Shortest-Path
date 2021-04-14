@@ -1,3 +1,26 @@
+                               // Anurag Kushwaha - NIT Patna 
+
+//  Coursera grader outcome - Good job! (Max time used: 21.91/50.00, max memory used: 82194432/2147483648.)
+
+//  Implemented the Single Direction A* alogirthm 
+/*                        
+                           ?? BASIC INTRODCTION  ??
+*          # First I will calculate the potential function basically euclid distance of the each vertex from the
+             destination vertex
+*          # There can be two ways to calculate the potential funcion - either precompute or compute the
+             potential of each vertex on the go;
+*          # Here I have Implemented the Euclid distance on the go;
+*          #  starting from the query Function;
+*/
+/*
+*  1- Now I will put the starting vertex in the priority queue as pair format of (distance_travelled+ euclid distance, vertex)
+*  2- now popping from the priority queue with minimum potential function and running over its connected edges
+*  3- visit Function will now visit over all of the connected edges and and try to relax the edges
+*  4- Relaxing the edges means trying to update the minimum vertex potential;
+*  5- After popped from the prority queue we first check whether this is the target vertex or not if yes return the dis_tavelled[curr_vertex];
+*      which holds the till now distance travelled from the source vertex to target;
+*/
+
 #include <cstdio>
 #include <cassert>
 #include <vector>
