@@ -1,3 +1,33 @@
+                              // Anurag Kushwaha - NIT Patna 
+
+//  Coursera grader outcome - Failed case #8/8: time limit exceeded (Time used: 100.02/50.00, memory used: 83046400/2147483648.
+                                       
+//            Implemented the Bidirectional A* alogirthm 
+/*                        
+                           ?? BASIC INTRODCTION  ??
+*          # First I will calculate the potential function basically euclid distance of the each vertex from the
+             destination vertex
+*          # There can be two ways to calculate the potential funcion - either precompute or compute the
+             potential of each vertex on the go;
+*          #  # Here I have Implemented the  Euclid distance on the go;
+*          #  starting from the query Function;
+*/
+                                    /*working *\
+                          /*------------------------------*\
+1- it starts from the function "query" where it will first take source and destination point as s and t.
+2- Now I will put the sourece vertex for the forward search and destination vertex for the backward search in the priority queue 
+    as pair format of (distance_travelled+ euclid distance, vertex)
+3- now I alternativeley remove the forward and backward vertex from the priority queue and each time i 
+     will check whether this node visited or not if not then i will call visit function and this will
+     visit all the neighbour of this node;
+4- whenver i will get visited node then i will stop my query function and call the "shortestpath" function
+     to return the shortest path
+5- now shortest path will run a loop over every visited node and calculate sum of the forward and backward 
+     distance and select the minumim out of it and return the result;
+                         /*------------------------------*\ */
+
+
+
 #include <cstdio>
 #include <cassert>
 #include <vector>
@@ -49,19 +79,6 @@ public:
         }
         workset_.clear();
     }
-    void euclidean_distance(int side, int s) {
-        for (int i = 0;i < n_;i++) {
-            double x_ = (xy_[s].first - xy_[i].first);
-            double y_ = (xy_[s].second - xy_[i].second);
-            double d = x_ * x_ + y_ * y_;
-            d = sqrt(d);
-            euclid[side][i] = d;
-        }
-    }
-    ll balance_potential(int a,int b) {
-        return (a - b )/ 2;
-        
-    }
     ll euclid_single(int source,int dest, int curr,int side) {
 
         ll x_1 = (xy_[source].first - xy_[curr].first);
@@ -81,8 +98,6 @@ public:
   
     // See the description of this method in the starter for friend_suggestion
     void visit(Queue& q, int side, int v, ll dist,int s,int t) {
-        // Implement this method yourself
-        //cout << "node visiting of v: " << v << "\n";
         for (int i = 0;i < adj_[side][v].size();i++) {
             int u = adj_[side][v][i];
             int cost = cost_[side][v][i];
@@ -99,13 +114,10 @@ public:
         }
     }
     ll shortestpath() {
-        //return dis_travelled[0][v] + dis_travelled[1][v];
         int n = workset_.size();
         ll min_ = 1000000000;
         for (int i = 0;i < n;i++) {
             int u = workset_[i];
-            //cout << (dis_travelled[0][u]) <<" : "<<(dis_travelled[1][u]) << '\n';
-          // cout << (dis_travelled[0][u] + dis_travelled[1][u]) << '\n';
             min_ = min(dis_travelled[0][u] + dis_travelled[1][u], min_);
         }
         return min_;
@@ -113,11 +125,6 @@ public:
     // Returns the distance from s to t in the graph
     ll query(int s, int t) {
         clear();
-        //if (s == t) return 0;
-
-       ///euclidean_distance(0, t); //O(n*(O(sqrt())
-      /// euclidean_distance(1, s);//O(n*(O(sqrt())
-      ///  balance_potential(); //O(n)
         dis_travelled[0][s] = 0;
         dis_travelled[1][t] = 0;
         distance_[0][s] = euclid_single(s,t,s,0) + dis_travelled[0][s];
@@ -128,7 +135,6 @@ public:
 
         workset_.push_back(s);
         workset_.push_back(t);
-        // Implement the rest of the algorithm yourself
         while (true) { //O(log(n)*edges);
             if (q[0].empty() == true || q[1].empty() == true) {
                 break;
@@ -136,7 +142,7 @@ public:
 
             auto top1 = q[0].top();
             q[0].pop();
-            //cout << "1st top :" << top1.second << "\n";
+          
             if (visited_[1][top1.second]) { return shortestpath(); }
            visit(q, 0, top1.second, top1.first,s,t);
             
@@ -144,7 +150,6 @@ public:
 
             auto top2 = q[1].top();
             q[1].pop();
-            //cout << "2nd top :" << top2.second << "\n";
             if (visited_[0][top2.second]) { return shortestpath(); }
             visit(q, 1, top2.second, top2.first,s,t);
            
@@ -156,30 +161,15 @@ public:
     }
 };
 int main() {
-    //vector<ll> ans;
-    //ifstream in("ans.txt");
-   /* while (in) {
-        int a;
-        in >> a;
-        /* ll temp = 0;
-         int s = a.size();
-             int i = 0;
-         while (i< s) {
-             temp += temp * 10; int(a[i]-'0');
-         } 
-        ans.push_back(a); */
    
-    //for (auto it : ans) cout << it << " ";
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int n, m;
     cin >> n >> m;
-    //scanf("%d%d", &n, &m);
     std::vector<std::pair<ll, ll>> xy(n);
     for (int i = 0;i < n;++i) {
         int a, b;
         cin >> a >> b;
-        //scanf("%d%d", &a, &b);
         xy[i] = make_pair(a, b);
     }
     Adj adj(2, vector<vector<int>>(n));
@@ -187,7 +177,6 @@ int main() {
     for (int i = 0; i < m; ++i) {
         int u, v, c;
         cin >> u >> v >> c;
-        // scanf("%d%d%d", &u, &v, &c);
         adj[0][u - 1].push_back(v - 1);
         cost[0][u - 1].push_back(c);
         adj[1][v - 1].push_back(u - 1);
@@ -198,20 +187,9 @@ int main() {
 
     int t;
     cin >> t;
-    //scanf("%d", &t);
     for (int i = 0; i < t; ++i) {
         int u, v;
         cin >> u >> v;
-        //scanf("%d%d", &u, &v);
-      /*  //printf("%lld\n", astar.query(u - 1, v - 1));
-        if (ans[i] != astar.query(u - 1, v - 1)) {
-            cout << i << "\n";
-            cout << "mismatch  " << u << " : " << v << "\n";
-            cout << "correct ans is " << ans[i] << '\n';
-            cout << "our  ans is " << astar.query(u - 1, v - 1) << '\n';
-            abort();
-
-        } */
         cout << astar.query(u - 1, v - 1) << '\n';
     }
 }
