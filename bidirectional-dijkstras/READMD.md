@@ -14,9 +14,9 @@ here to use in the grader, and you can play with more of them on your
 own computer
 ## Problem Description
 ## Task.
-    Compute the distance between several pairs of nodes in the network
+   Compute the distance between several pairs of nodes in the network
 ## Input Format
-     The first line contains two integers 𝑛 and 𝑚 — the number of nodes and edges in the
+The first line contains two integers 𝑛 and 𝑚 — the number of nodes and edges in the
 network, respectively. The nodes are numbered from 1 to 𝑛. Each of the following 𝑚 lines contains
 three integers 𝑢, 𝑣 and 𝑙 describing a directed edge (𝑢, 𝑣) of length 𝑙 from the node number 𝑢to the
 node number 𝑣. (Note that some social networks are represented by directed graphs while some other
